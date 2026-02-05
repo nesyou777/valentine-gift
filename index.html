@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine Surprise 💘</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Background hearts -->
+  <div class="bg"></div>
+
+  <main class="wrap">
+    <!-- PAGE 1 -->
+    <section id="page1" class="card">
+      <h1>Hey my love 💕</h1>
+      <p class="subtitle">Quick question… 😌</p>
+
+      <!-- YES/NO image -->
+      <div class="hero">
+        <img src="yesno.png" alt="Yes or No" class="heroImg" />
+      </div>
+
+      <h2>Will you be my Valentine? 🌹</h2>
+
+      <div class="btnRow">
+        <button id="yesBtn" class="btn btnYes">YES 😍</button>
+        <button id="noBtn" class="btn btnNo">NO 😢</button>
+      </div>
+
+      <p id="tease" class="tease">Choose wisely… 👀</p>
+    </section>
+
+    <!-- PAGE 2 (YES) -->
+    <section id="pageYes" class="card hidden">
+      <h1>YEEEEES 🎉💘</h1>
+      <p class="subtitle">Okay… it’s official 😌</p>
+
+      <img src="yes.png" alt="YES" class="yesImg" />
+
+      <!-- Countdown -->
+      <div class="countdownBox">
+        <h3>Countdown to Valentine’s Day ⏳</h3>
+        <div id="countdown" class="countdown">Loading…</div>
+        <div id="valentineDate" class="small"></div>
+      </div>
+
+      <!-- Slideshow -->
+      <div class="slideshowBox">
+        <h3>Us in pictures 📸</h3>
+        <div class="slideshow">
+          <button id="prev" class="navBtn" aria-label="Previous photo">‹</button>
+          <img id="slideImg" class="slideImg" alt="Our photo slideshow" />
+          <button id="next" class="navBtn" aria-label="Next photo">›</button>
+        </div>
+        <div id="slideDots" class="dots"></div>
+        <p class="small">Tip: add your photos in <code>/photos</code> folder.</p>
+      </div>
+
+      <!-- Restaurant chooser -->
+      <div class="restaurantBox">
+        <h3>Choose restaurant in NICE 🍽️</h3>
+        <p class="small">Pick one and I’ll take care of the rest 😌</p>
+
+        <div class="restRow">
+          <select id="restaurantSelect" class="select">
+            <option value="" selected disabled>Pick a restaurant…</option>
+            <option value="https://www.google.com/maps/search/?api=1&query=La+Petite+Maison+Nice">La Petite Maison</option>
+            <option value="https://www.google.com/maps/search/?api=1&query=Le+Plongeoir+Nice">Le Plongeoir</option>
+            <option value="https://www.google.com/maps/search/?api=1&query=JAN+Nice+restaurant">JAN</option>
+            <option value="https://www.google.com/maps/search/?api=1&query=Peixes+Nice+restaurant">Peixes</option>
+            <option value="https://www.google.com/maps/search/?api=1&query=Chez+Acchiardo+Nice">Chez Acchiardo</option>
+          </select>
+
+          <button id="openRest" class="btn btnYes">Open 📍</button>
+        </div>
+
+        <p id="restChosen" class="small"></p>
+      </div>
+
+      <!-- Music (starts on YES click) -->
+      <audio id="loveSong" preload="auto">
+        <source src="music.mp3" type="audio/mpeg" />
+        Your browser does not support audio.
+      </audio>
+
+      <div class="footerRow">
+        <button id="replay" class="btn btnNo">Replay 🔁</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
