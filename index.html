@@ -8,7 +8,6 @@
 </head>
 
 <body>
-  <!-- Background hearts -->
   <div class="bg"></div>
 
   <main class="wrap">
@@ -17,7 +16,6 @@
       <h1>Hey my love 💕</h1>
       <p class="subtitle">Quick question… 😌</p>
 
-      <!-- YES/NO image -->
       <div class="hero">
         <img src="yesno.png" alt="Yes or No" class="heroImg" />
       </div>
@@ -30,6 +28,21 @@
       </div>
 
       <p id="tease" class="tease">Choose wisely… 👀</p>
+
+      <!-- If autoplay blocked -->
+      <button id="playMusicBtn" class="btn btnYes hidden">
+        Tap to start music 🎵
+      </button>
+
+      <!-- Music for Page 1 -->
+      <audio id="musicPage1" preload="auto" loop>
+        <source src="GharibaNass.mp3" type="audio/mpeg" />
+      </audio>
+
+      <!-- Music for YES -->
+      <audio id="musicYes" preload="auto" loop>
+        <source src="SahakShou9.mp3" type="audio/mpeg" />
+      </audio>
     </section>
 
     <!-- PAGE 2 (YES) -->
@@ -39,26 +52,22 @@
 
       <img src="yes.png" alt="YES" class="yesImg" />
 
-      <!-- Countdown -->
       <div class="countdownBox">
-        <h3>Countdown to Valentine’s Day ⏳</h3>
+        <h3>Countdown to Valentine’s Day w See u ya Sokar⏳</h3>
         <div id="countdown" class="countdown">Loading…</div>
         <div id="valentineDate" class="small"></div>
       </div>
 
-      <!-- Slideshow -->
       <div class="slideshowBox">
-        <h3>Us in pictures 📸</h3>
+        <h3>Chwiya from Us in pictures 📸</h3>
         <div class="slideshow">
-          <button id="prev" class="navBtn" aria-label="Previous photo">‹</button>
+          <button id="prev" class="navBtn">‹</button>
           <img id="slideImg" class="slideImg" alt="Our photo slideshow" />
-          <button id="next" class="navBtn" aria-label="Next photo">›</button>
+          <button id="next" class="navBtn">›</button>
         </div>
         <div id="slideDots" class="dots"></div>
-        <p class="small">Tip: add your photos in <code>/photos</code> folder.</p>
       </div>
 
-      <!-- Restaurant chooser -->
       <div class="restaurantBox">
         <h3>Choose restaurant in NICE 🍽️</h3>
         <p class="small">Pick one and I’ll take care of the rest 😌</p>
@@ -78,12 +87,6 @@
 
         <p id="restChosen" class="small"></p>
       </div>
-
-      <!-- Music (starts on YES click) -->
-      <audio id="loveSong" preload="auto">
-        <source src="music.mp3" type="audio/mpeg" />
-        Your browser does not support audio.
-      </audio>
 
       <div class="footerRow">
         <button id="replay" class="btn btnNo">Replay 🔁</button>
