@@ -4,7 +4,10 @@ const noBtn = document.getElementById("noBtn");
 const page1 = document.getElementById("page1");
 const pageYes = document.getElementById("pageYes");
 
-const loveSong = document.getElementById("loveSong");
+const musicPage1 = document.getElementById("musicPage1");
+const musicYes = document.getElementById("musicYes");
+
+const playMusicBtn = document.getElementById("playMusicBtn");
 
 // Countdown
 const countdownEl = document.getElementById("countdown");
@@ -24,18 +27,49 @@ const restChosen = document.getElementById("restChosen");
 // Replay
 const replayBtn = document.getElementById("replay");
 
-// ✅ Put your slideshow photos here (names must exist in /photos)
+// Photos
 const slides = [
-  "photos/01.jpg",
-  "photos/02.jpg",
-  "photos/03.jpg",
-  "photos/04.jpg",
+  "photos/01.jpeg",
+  "photos/02.jpeg",
+  "photos/03.jpeg"
 ];
 
 let slideIndex = 0;
 let slideTimer = null;
 
-// --- NO button runs away 😈
+// -----------------------------
+// 🎵 AUTO PLAY PAGE 1 MUSIC
+// -----------------------------
+async function tryAutoPlayPage1Music() {
+  musicPage1.volume = 0.6;
+
+  try {
+    await musicPage1.play();
+    console.log("Page1 music started automatically ✅");
+  } catch (e) {
+    console.log("Autoplay blocked ❌ Showing button...");
+    playMusicBtn.classList.remove("hidden");
+  }
+}
+
+// If autoplay blocked, user clicks this button
+playMusicBtn.addEventListener("click", async () => {
+  try {
+    await musicPage1.play();
+    playMusicBtn.classList.add("hidden");
+  } catch (e) {
+    alert("Tap again 😅 your browser blocked autoplay.");
+  }
+});
+
+// Try autoplay when page loads
+window.addEventListener("load", () => {
+  tryAutoPlayPage1Music();
+});
+
+// -----------------------------
+// 😈 NO button runs away
+// -----------------------------
 noBtn.addEventListener("mouseover", () => {
   const x = Math.random() * 260 - 130;
   const y = Math.random() * 220 - 110;
@@ -46,33 +80,44 @@ noBtn.addEventListener("click", () => {
   alert("No is not an option 😌💘 Try again!");
 });
 
-// --- YES click: show page 2 + start music + countdown + slideshow
+// -----------------------------
+// ✅ YES click
+// -----------------------------
 yesBtn.addEventListener("click", async () => {
+  // Stop Page1 music
+  musicPage1.pause();
+  musicPage1.currentTime = 0;
+
+  // Start YES music
+  musicYes.volume = 0.75;
+  try {
+    await musicYes.play();
+  } catch (e) {
+    console.log("YES music blocked, user may need second click.");
+  }
+
   page1.classList.add("hidden");
   pageYes.classList.remove("hidden");
 
   startCountdown();
 
-  // Slideshow init
   initDots();
   showSlide(0);
   startAutoSlide();
-
-  // Music: browsers allow audio after user interaction ✅
-  try {
-    await loveSong.play();
-  } catch (e) {
-    // If autoplay fails, user can tap again or you can add a "Play" button.
-    console.log("Audio play blocked:", e);
-  }
 });
 
-// --- Countdown to next Feb 14 (always future)
+// -----------------------------
+// ⏳ Countdown to Feb 14
+// -----------------------------
 function getNextValentineDate() {
   const now = new Date();
   const year = now.getFullYear();
-  let target = new Date(year, 1, 14, 0, 0, 0); // Feb = 1
-  if (now > target) target = new Date(year + 1, 1, 14, 0, 0, 0);
+  let target = new Date(year, 1, 14, 0, 0, 0);
+
+  if (now > target) {
+    target = new Date(year + 1, 1, 14, 0, 0, 0);
+  }
+
   return target;
 }
 
@@ -96,14 +141,15 @@ function startCountdown() {
     const seconds = totalSeconds % 60;
 
     countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    requestAnimationFrame(() => {}); // tiny keep-alive
   };
 
   tick();
   setInterval(tick, 1000);
 }
 
-// --- Slideshow
+// -----------------------------
+// 📸 Slideshow
+// -----------------------------
 function initDots() {
   dotsEl.innerHTML = "";
   slides.forEach((_, i) => {
@@ -149,27 +195,36 @@ function restartAutoSlide() {
   startAutoSlide();
 }
 
-// --- Restaurant
+// -----------------------------
+// 🍽️ Restaurant chooser
+// -----------------------------
 openRestBtn.addEventListener("click", () => {
   const url = restaurantSelect.value;
+
   if (!url) {
     alert("Pick a restaurant first 😄");
     return;
   }
+
   restChosen.textContent = `Chosen: ${restaurantSelect.options[restaurantSelect.selectedIndex].text}`;
   window.open(url, "_blank");
 });
 
-// --- Replay
+// -----------------------------
+// 🔁 Replay button
+// -----------------------------
 replayBtn.addEventListener("click", () => {
-  // Stop music
-  loveSong.pause();
-  loveSong.currentTime = 0;
+  // Stop YES music
+  musicYes.pause();
+  musicYes.currentTime = 0;
+
+  // Restart Page1 music
+  tryAutoPlayPage1Music();
 
   // Stop slideshow
   if (slideTimer) clearInterval(slideTimer);
 
-  // Reset
+  // Reset UI
   pageYes.classList.add("hidden");
   page1.classList.remove("hidden");
   noBtn.style.transform = "translate(0,0)";
